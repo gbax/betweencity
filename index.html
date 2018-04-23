@@ -1,0 +1,55 @@
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Задача Коммивояжёра</title>
+    <link href="./styles/style.css" rel="stylesheet">
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+</head>
+<body>
+<div class="blocker"></div>
+<div class="container">
+    <div class="params">
+        <h2 class="field">Параметры</h2>
+        <div class="field">
+            Город:
+            <input type="text" class="city js-city"/>
+            <input type="button" class="js-add" value="Добавить"/>
+        </div>
+        <div class="field">
+            Список городов:
+        </div>
+        <div class="field js-cities">
+
+        </div>
+        <div class="field">
+            <input type="button" class="js-calc" value="Рассчитать" disabled/>
+        </div>
+        <div class="field">
+            <input type="button" class="js-save" value="Сохранить данные городов" disabled/>
+        </div>
+        <div class="field">
+            <input type="button" id="loadFileXml" value="Загрузить данные городов" onclick="document.getElementById('files').click();" />
+            <input type="file" style="display:none;" id="files" name="files"/>
+        </div>
+
+        <div class="field">
+            <input type="button" class="js-clean" value="Очистить"/>
+        </div>
+    </div>
+    <div class="first-calc">
+        <h2 class="field">Алгоритм 1</h2>
+        <div class="field" id="map" style="width: 600px; height: 400px"></div>
+    </div>
+    <div class="second-calc">
+        <h2 class="field">Алгоритм 2</h2>
+        <div class="field" id="map2" style="width: 600px; height: 400px"></div>
+    </div>
+</div>
+<script src="./scripts/jquery-3.3.1.js"></script>
+<script src="./scripts/map.js" ></script>
+<script src="./scripts/deffered.js" ></script>
+<script src="./scripts/utils.js" ></script>
+<script src="./scripts/phases.js" ></script>
+<script src="./scripts/index.js" ></script>
+</body>
+</html>
