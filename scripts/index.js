@@ -3,6 +3,7 @@ let routes = [];
 const controls = {};
 const mapLeft = {_map: null};
 const mapRight = {_map: null};
+let isFileLoading = false;
 
 const loadPage = async () => {
     const deferredLeft = new Deferred();
@@ -12,6 +13,8 @@ const loadPage = async () => {
     await deferredLeft.promise;
     await deferredRight.promise;
     bindControls();
+    cities = [];
+    routes = [];
     initControls();
     $('.blocker').hide();
 };
@@ -29,7 +32,12 @@ const bindControls = () => {
     controls._calc.click(calcClickCallback);
     controls._save.click(saveCallback);
     controls._files.change(fileChooseCallback);
-    controls._clean.click(() =>  initControls());
+    controls._clean.click(() => {
+        cities = [];
+        routes = [];
+        isFileLoading = false;
+        initControls();
+    });
 
 };
 
@@ -37,7 +45,7 @@ const addCityCallback = () => {
     const city = controls._city.val();
     controls._city.val('');
     cities.push(city);
-    if (cities.length > 2 ) {
+    if (cities.length > 2) {
         canCalc();
     }
     controls._citiesTable.append(city + '<br/>');
@@ -45,6 +53,10 @@ const addCityCallback = () => {
 
 const calcClickCallback = () => {
     $('.blocker').show();
+    if (isFileLoading) {
+        calc();
+        return
+    }
     let cityPairs = flatten(
         cities.map(c => cities.map(ci => ({arr: [c, ci].sort((a, b) => a > b ? 1 : a < b ? -1 : 0)})))
     )
@@ -72,15 +84,24 @@ const getCoordinates = () => {
 
 const calcAlgo = () => {
     cities.map((c, index) => {
-        c.number = index+1;
+        c.number = index + 1;
     })
 
     //TODO Алгортм писать тут
 };
 
+const calc = () => {
+    clearMaps();
+    calcAlgo();
+    drawCitiesPoints(mapLeft);
+    drawRoutes(mapLeft);
+    drawCitiesPoints(mapRight);
+    drawRoutes(mapRight);
+    $('.blocker').hide();
+};
 const getPaths = () => {
     Promise.all(routes.map(r => new Promise(resolve => {
-            ymaps.route(r.path).then(function (route) {
+            ymaps.route(r.path).then((route) => {
                 r.length = route.getLength();
                 let paths = route.getPaths();
                 const allSegments = [];
@@ -94,29 +115,32 @@ const getPaths = () => {
             });
         })
     )).then(() => {
-        calcAlgo();
-        drawCitiesPoints(mapLeft);
-        drawRoutes(mapLeft);
-        drawCitiesPoints(mapRight);
-        drawRoutes(mapRight);
-        $('.blocker').hide();
+        calc();
         console.log('getPaths done');
     });
 };
 
 
+const loadData = (parsed) => {
+    initControls();
+    cities = parsed.cities;
+    controls._citiesTable.append(cities.map(c => c.city + '<br/>'));
+    routes = parsed.routes;
+    isFileLoading = true;
+    canCalc();
+    calc();
+};
+
 const fileChooseCallback = (evt) => {
+    const _this = this;
     let files = evt.target.files;
     for (let i = 0, f; f = files[i]; i++) {
         let reader = new FileReader();
-        reader.onload = (function (reader) {
-            return function () {
+        reader.onload = (reader => {
+            return () => {
                 let contents = reader.result;
                 let parsed = JSON.parse(contents);
-                cities = parsed.cities;
-                controls._citiesTable.append(cities.map(c => c.city + '<br/>'));
-                routes = parsed.routes;
-
+                loadData(parsed);
             }
         })(reader);
         reader.readAsText(f);
