@@ -19,6 +19,14 @@ const loadPage = async () => {
     $('.blocker').hide();
 };
 
+const getMatrix = () => cities.map(c =>
+    cities.map(cc => {
+        const pair = [cc.city, c.city];
+        let r = routes.find(r => r.path[0] && pair.includes(r.path[1]));
+        return {length: r ? r.length : 0, pair: pair};
+    }));
+
+
 const bindControls = () => {
     controls._addCity = $('.js-add');
     controls._calc = $('.js-calc');
