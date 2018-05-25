@@ -9,6 +9,7 @@ const initControls = () => {
     clearMaps();
 };
 
+//удаление блокировки с кнопок
 const canCalc = () => {
     controls._calc.removeAttr('disabled');
     controls._save.removeAttr('disabled');

@@ -22,8 +22,15 @@ const loadPage = async () => {
 const getMatrix = () => cities.map(c =>
     cities.map(cc => {
         const pair = [cc.city, c.city];
-        let r = routes.find(r => r.path[0] && pair.includes(r.path[1]));
+        let r = routes.find(r => pair.includes(r.path[0]) && pair.includes(r.path[1]));
         return {length: r ? r.length : 0, pair: pair};
+    }));
+
+const getMatrixSimple = () => cities.map(c =>
+    cities.map(cc => {
+        const pair = [cc.city, c.city];
+        let r = routes.find(r => pair.includes(r.path[0]) && pair.includes(r.path[1]));
+        return r ? r.length : 0;
     }));
 
 
@@ -93,8 +100,10 @@ const getCoordinates = () => {
 const calcAlgo = () => {
     cities.map((c, index) => {
         c.number = index + 1;
-    })
-
+    });
+    let matrix = getMatrixSimple();
+    let geneticAlgorithm = GeneticAlgorithm(matrix, 10, 0);
+    console.log(geneticAlgorithm);
     //TODO Алгортм писать тут
 };
 
