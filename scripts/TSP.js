@@ -2,15 +2,25 @@
 
 //Функция для подсчета длины пути в генетическом алгоритме
 
-//Значения построения одномерных функций ценности
-const params1 = {
-    middleSpeedRestriction: {
-        max: 0, average075: 0, average05: 0
+//Значения для построения одномерных функций ценности и для определения шкалирующих коэффициентов
+const valuesForValueFunctionsAndForScalingFactors  = {
+    middleEstimatesOfPermittedVelocities: {
+        xmax: 0, xaverage075: 0, xaverage05: 0, xaverage025:0, xmin:0, lambda:0, rank:0, xСompare:0,
+        ymax: 1, yaverage075: 0.75, yaverage05: 0.5, yaverage025:0.25, ymin:0
     },
-    middleQualityRoads: {
+    middleQualityOfRoads: {
+        xmax: 0, xaverage075: 0, xaverage05: 0, xaverage025:0, xmin:0, lambda:0, rank:0, xСompare:0,
+        ymax: 0, yaverage075: 0.25, yaverage05: 0.5, yaverage025:0.75, ymin:1
+    },
+    middleNumberOfTrafficLights:
+        {
+            xmax: 0, xaverage075: 0, xaverage05: 0, xaverage025:0, xmin:0, lambda:0, rank:0, xСompare:0,
+            ymax: 0, yaverage075: 0.25, yaverage05: 0.5, yaverage025:0.75, ymin:1
+        }
 
-    }
 };
+
+
 
 function CostWayGeneticAlgorithm(matrixWay, way) {
     let costWay = 0;
@@ -366,7 +376,7 @@ function Branch_And_Boundary_Method(A, I, J, X0) {
         if (!I.includes(i) || (I.includes(i) && I[i] == I[p - 1])) {
 
             min = Number.MAX_SAFE_INTEGER;
-            for (let k = p; k < N; k++)
+            for (let k = 0; k < N; k++)
                 if (C[i][k] < min)
                     min = C[i][k];
             Alpha[i] = min;
@@ -471,7 +481,7 @@ function CostWayBranchAndBoundaryMethod(matrixWay, way) {
         costWay += matrixWay[way[i]][way[i + 1]];
     }
 
-    costWay += matrixWay[way[way.length - 1]][0];
+    costWay += matrixWay[way[way.length - 1]][way[0]];
     return costWay;
 }
 
@@ -500,7 +510,7 @@ function GreedyAlgorithm(matrixWay, I, J) {
 
     let k = p - 1;
 
-    min = 999999;
+    min = Number.MAX_SAFE_INTEGER;
 
     let flag = false;
 
@@ -521,7 +531,7 @@ function GreedyAlgorithm(matrixWay, I, J) {
 
 
     while (count != n) {
-        min = 999999;
+        min = Number.MAX_SAFE_INTEGER;
 
         for (let j = 0; j < n; j++) {
 
@@ -560,21 +570,21 @@ function vSpeed(x) {
     let k = 1, b, y;
 
 
-    if (x <= x1Speed && x > x2Speed) {
-        k = (y1Speed - y2Speed) / (x1Speed - x2Speed);
-        b = (x1Speed * y2Speed - y1Speed * x2Speed) / (x1Speed - x2Speed);
+    if (x <= valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xmax && x > valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage075) {
+        k = (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.ymax - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.yaverage075) / (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xmax - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage075);
+        b = (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xmax * valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.yaverage075 - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.ymax * valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage075) / (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xmax - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage075);
     }
-    else if (x <= x2Speed && x > x3Speed) {
-        k = (y2Speed - y3Speed) / (x2Speed - x3Speed);
-        b = (x2Speed * y3Speed - y2Speed * x3Speed) / (x2Speed - x3Speed);
+    else if (x <= valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage075 && x > valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage05) {
+        k = (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.yaverage075 - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.yaverage05) / (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage075 - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage05);
+        b = (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage075 * valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.yaverage05 - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.yaverage075 * valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage05) / (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage075 - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage05);
     }
-    else if (x <= x3Speed && x > x4Speed) {
-        k = (y3Speed - y4Speed) / (x3Speed - x4Speed);
-        b = (x3Speed * y4Speed - y3Speed * x4Speed) / (x3Speed - x4Speed);
+    else if (x <= valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage05 && x > valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage025) {
+        k = (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.yaverage05 - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.yaverage025) / (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage05 - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage025);
+        b = (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage05 * valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.yaverage025 - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.yaverage05 * valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage025) / (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage05 - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage025);
     }
     else {
-        k = (y4Speed - y5Speed) / (x4Speed - x5Speed);
-        b = (x4Speed * y5Speed - y4Speed * x5Speed) / (x4Speed - x5Speed);
+        k = (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.yaverage025 - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.ymin) / (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage025 - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xmin);
+        b = (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage025 * valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.ymin - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.yaverage025 * valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xmin) / (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage025 - valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xmin);
     }
 
 
@@ -586,21 +596,21 @@ function vSpeed(x) {
 function vQuality(x) {
 
     let k = 1, b, y;
-    if (x <= x1Quality && x > x2Quality) {
-        k = (y1Quality - y2Quality) / (x1Quality - x2Quality);
-        b = (x1Quality * y2Quality - y1Quality * x2Quality) / (x1Quality - x2Quality);
+    if (x <= valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xmax && x > valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage075) {
+        k = (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.ymax - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.yaverage075) / (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xmax - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage075);
+        b = (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xmax * valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.yaverage075 - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.ymax * valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage075) / (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xmax - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage075);
     }
-    else if (x <= x2Quality && x > x3Quality) {
-        k = (y2Quality - y3Quality) / (x2Quality - x3Quality);
-        b = (x2Quality * y3Quality - y2Quality * x3Quality) / (x2Quality - x3Quality);
+    else if (x <= valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage075 && x > valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage05) {
+        k = (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.yaverage075 - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.yaverage05) / (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage075 - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage05);
+        b = (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage075 * valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.yaverage05 - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.yaverage075 * valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage05) / (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage075 - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage05);
     }
-    else if (x <= x3Speed && x > x4Speed) {
-        k = (y3Quality - y4Speed) / (x3Speed - x4Quality);
-        b = (x3Quality * y4Speed - y3Speed * x4Quality) / (x3Quality - x4Quality);
+    else if (x <= valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage05 && x > valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage025) {
+        k = (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.yaverage05 - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.yaverage025) / (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage05 - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage025);
+        b = (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage05 * valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.yaverage025 - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.yaverage05 * valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage025) / (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage05 - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage025);
     }
     else {
-        k = (y4Quality - y5Quality) / (x4Quality - x5Quality);
-        b = (x4Quality * y5Quality - y4Quality * x5Quality) / (x4Quality - x5Quality);
+        k = (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.yaverage025 - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xmin) / (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage025 - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xmin);
+        b = (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage025 * valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xmin - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.yaverage025 * valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xmin) / (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage025 - valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xmin);
     }
 
     y = k * x + b;
@@ -612,22 +622,22 @@ function vCost(x) {
 
     let k = 1, b, y;
 
-    if (x <= x1Cost && x > x2Cost) {
+    if (x <= valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xmax && x > valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage075) {
 
-        k = (y2Cost - y1Cost) / (x2Cost - x1Cost);
-        b = (x2Cost * y1Cost - y2Cost * x1Cost) / (x2Cost - x1Cost);
+        k = (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.yaverage075 - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.ymax) / (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage075 - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xmax);
+        b = (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage075 * valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.ymax - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.yaverage075 * valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xmax) / (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage075 - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xmax);
     }
-    else if (x <= x2Quality && x > x3Quality) {
-        k = (y3Cost - y2Cost) / (x3Cost - x2Cost);
-        b = (x3Cost * y2Cost - y3Cost * x2Cost) / (x3Cost - x2Cost);
+    else if (x <= valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage075 && x > valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage05) {
+        k = (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.yaverage05 - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.yaverage075) / (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage05 - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage075);
+        b = (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage05 * valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.yaverage075 - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.yaverage05 * valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage075) / (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage05 - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage075);
     }
-    else if (x <= x3Speed && x > x4Speed) {
-        k = (y4Cost - y3Cost) / (x4Cost - x3Cost);
-        b = (x4Cost * y3Cost - y4Cost * x3Cost) / (x4Cost - x3Cost);
+    else if (x <= valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage05 && x > valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage025) {
+        k = (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.yaverage025 - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.yaverage05) / (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage025 - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage05);
+        b = (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage025 * valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.yaverage05 - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.yaverage025 * valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage05) / (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage025 - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage05);
     }
     else {
-        k = (y5Cost - y4Cost) / (x5Cost - x4Cost);
-        b = (x5Cost * y4Cost - y5Cost * x4Cost) / (x5Cost - x4Cost);
+        k = (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.ymin - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.yaverage025) / (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xmin - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage025);
+        b = (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xmin * valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.yaverage025 - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.ymin * valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage025) / (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xmin - valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage025);
     }
 
 
@@ -637,20 +647,20 @@ function vCost(x) {
 
 //Оценка дороги
 function lambda() {
-    if (rank1Speed == 1) {
-        lambdaSpeed = 1 / (vSpeed(x3СompareCost) + vSpeed(x2СompareQuality) + 1);
-        lambdaQuality = lambdaSpeed * vSpeed(x2СompareQuality);
-        lambdaCost = lambdaSpeed * vSpeed(x3СompareCost);
+    if (valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.rank == 1) {
+        valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.lambda = 1 / (vSpeed(valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xСompare) + vSpeed(valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xСompare) + 1);
+        valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.lambda = valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.lambda * vSpeed(valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xСompare);
+        valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.lambda = valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.lambda * vSpeed(valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xСompare);
     }
-    else if (rank2Quality == 1) {
-        lambdaQuality = 1 / (vQuality(x1СompareSpeed) + vQuality(x3СompareCost) + 1);
-        lambdaSpeed = lambdaQuality * vQuality(x1СompareSpeed);
-        lambdaCost = lambdaQuality * vQuality(x3СompareCost);
+    else if (valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.rank == 1) {
+        valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.lambda = 1 / (vQuality(valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xСompare) + vQuality(valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xСompare) + 1);
+        valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.lambda = valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.lambda * vQuality(valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xСompare);
+        valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.lambda = valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.lambda * vQuality(valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xСompare);
     }
-    else if (rank3Cost == 1) {
-        lambdaCost = 1 / (vCost(x1СompareSpeed) + vCost(x3СompareCost) + 1);
-        lambdaSpeed = lambdaCost * vCost(x1СompareSpeed);
-        lambdaQuality = lambdaCost * vCost(x2СompareQuality);
+    else if (valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.rank == 1) {
+        valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.lambda = 1 / (vCost(valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xСompare) + vCost(valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xСompare) + 1);
+        valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.lambda = valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.lambda * vCost(valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xСompare);
+        valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.lambda = valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.lambda * vCost(valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xСompare);
     }
 
 }
@@ -658,7 +668,7 @@ function lambda() {
 //Аддитивная оценка дороги
 function vAdditiveEstimation(xSpeed, xQuality, xCost) {
     lambda();
-    return lambdaSpeed * vSpeed(xSpeed) + lambdaQuality * vQuality(xQuality) + lambdaCost * vCost(xCost);
+    return valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.lambda * vSpeed(xSpeed) + valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.lambda * vQuality(xQuality) + valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.lambda * vCost(xCost);
 }
 
 //Функция модификации матрицы стоимости
