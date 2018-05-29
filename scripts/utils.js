@@ -13,13 +13,3 @@ const groupBy = (array, f) => {
         return groups[group];
     });
 };
-
-const fileSaver = text => {
-    var blob = new Blob([text], { type: 'text/plain' }),
-        anchor = document.createElement('a');
-
-    anchor.download = "cities.txt";
-    anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
-    anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
-    anchor.click();
-};

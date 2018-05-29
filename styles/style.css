@@ -59,6 +59,10 @@ body {
     overflow: auto;
 }
 
+.container.cities-params {
+    flex-direction: column;
+}
+
 .params {
     width: 20%;
     border: solid 1px black;
@@ -85,6 +89,59 @@ body {
     min-height: 600px;
 }
 
+.forth-calc {
+    width:40%;
+    min-width: 640px;
+    border: solid 1px black;
+    margin: 10px;
+    border-radius: 3px;
+    min-height: 600px;
+}
+
+.third-calc {
+    width:40%;
+    min-width: 640px;
+    border: solid 1px black;
+    margin: 10px;
+    border-radius: 3px;
+    min-height: 600px;
+}
+
 .field {
-    margin: 20px;
+    margin: 10px;
+}
+
+.text-value {
+    width: 40px;
+}
+
+.params-2-table {
+    display: grid;
+    grid-template-columns: 50px 50px 50px 50px;
+    grid-template-rows:  50px 50px 50px 50px 50px 50px;
+}
+
+.params-1-table {
+    display: grid;
+    grid-template-columns: 50px 50px 50px 50px;
+    grid-template-rows:  50px 50px 50px 50px 50px 50px;
+}
+
+.params-dynamic-table {
+    display: grid;
+}
+
+.results {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+}
+
+.container.maps {
+    flex-direction: column;
+}
+
+.map-result {
+    height: 200px;
+    width: 100%;
 }
