@@ -26,20 +26,19 @@ const MapParams = (function () {
             await deferredThird.promise;
             await deferredForth.promise;
         }
-        $('.blocker').hide();
         mapLeft._map.geoObjects.removeAll();
         mapRight._map.geoObjects.removeAll();
         mapThird._map.geoObjects.removeAll();
         mapForth._map.geoObjects.removeAll();
 
         let cityPairs = flatten(
-            params.cities.map(c => params.cities.map(ci => ({arr: [c, ci].sort((a, b) => a > b ? 1 : a < b ? -1 : 0)})))
+            params.cities.map(c => params.cities.map(ci => ({arr: [c.city ? c.city : c, ci.city ? ci.city : ci].sort((a, b) => a > b ? 1 : a < b ? -1 : 0)})))
         )
             .map(p => p.arr);
 
         let groupedPairs = groupBy(cityPairs, p => p);
-        params.routes.push(...groupedPairs.map(p => p[0]).filter(p => p[0] !== p[1]).map(p => ({path: p})));
-        params.cities = params.cities.map(c => ({city: c, coordinates: null}));
+        params.routes = groupedPairs.map(p => p[0]).filter(p => p[0] !== p[1]).map(p => ({path: p}));
+        params.cities = params.cities.map(c => ({city: c.city ? c.city : c, coordinates: null}));
         getCoordinates();
 
     };
