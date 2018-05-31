@@ -2,7 +2,7 @@ const MapParams = (function () {
 
     const container = $('.js-params-map');
     container.find('.js-to-begin').click(() => CityParams.reset());
-    container.find('.js-prev').click(() => Params7.init());
+    container.find('.js-prev').click(() => AdjustmentOfAlgorithmParameters.init());
 
     const mapLeft = {_map: null};
     const mapRight = {_map: null};
@@ -103,24 +103,24 @@ const MapParams = (function () {
         drawRoutes(mapForth);
 
         $('.map-result.map1')
-            .append(results.firstAlgorithmResult.costwayBranchAndBoundaryMethodWithModification )
+            .append(results.firstAlgorithmResult.costWayBranchAndBoundaryMethod)
             .append('<br/>')
-            .append(results.firstAlgorithmResult.wayBranchAndBoundaryMethodWithModification );
+            .append(results.firstAlgorithmResult.wayBranchAndBoundaryMethod);
 
         $('.map-result.map2')
-            .append(results.secondAlgorithmResult.costwayBranchAndBoundaryMethodWithModification )
+            .append(results.secondAlgorithmResult.costWayGeneticAlgorithm )
             .append('<br/>')
-            .append(results.secondAlgorithmResult.wayBranchAndBoundaryMethodWithModification );
+            .append(results.secondAlgorithmResult.wayGeneticAlgorithm );
 
         $('.map-result.map3')
-            .append(results.thirdAlgorithmResult.costwayBranchAndBoundaryMethodWithModification )
+            .append(results.thirdAlgorithmResult.costWayBranchAndBoundaryMethodWithModification )
             .append('<br/>')
             .append(results.thirdAlgorithmResult.wayBranchAndBoundaryMethodWithModification );
 
         $('.map-result.map4')
-            .append(results.forthAlgorithmResult.costwayBranchAndBoundaryMethodWithModification )
+            .append(results.forthAlgorithmResult.costWayGeneticAlgorithmWithModification )
             .append('<br/>')
-            .append(results.forthAlgorithmResult.wayBranchAndBoundaryMethodWithModification );
+            .append(results.forthAlgorithmResult.wayGeneticAlgorithmWithModification );
 
         $('.blocker').hide();
     };

@@ -1,9 +1,9 @@
-const Params4 = (function () {
+const InputMatrixSpeed = (function () {
 
     const container = $('.js-params-3');
     container.find('.js-to-begin').click(() => CityParams.reset());
-    container.find('.js-prev').click(() => Params3.init());
-    container.find('.js-next').click(() => Params5.init());
+    container.find('.js-prev').click(() => InputCoefficientCriteria.init());
+    container.find('.js-next').click(() => InputMatrixQuality.init());
 
     const init = () => {
         $('.container').hide();

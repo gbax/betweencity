@@ -117,14 +117,14 @@ body {
 
 .params-2-table {
     display: grid;
-    grid-template-columns: 50px 50px 50px 50px;
-    grid-template-rows:  50px 50px 50px 50px 50px 50px;
+    grid-template-columns: 100px 100px 100px 100px;
+    grid-template-rows:  70px 70px 70px 70px 70px 70px;
 }
 
 .params-1-table {
     display: grid;
-    grid-template-columns: 50px 50px 50px 50px;
-    grid-template-rows:  50px 50px 50px 50px 50px 50px;
+    grid-template-columns: 100px 100px 100px 100px;
+    grid-template-rows:  70px 70px 70px 70px 70px 70px;
 }
 
 .params-dynamic-table {
@@ -144,4 +144,9 @@ body {
 .map-result {
     height: 200px;
     width: 100%;
+}
+.text-value
+{
+
+    width: 70px;
 }

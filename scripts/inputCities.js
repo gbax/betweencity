@@ -47,7 +47,7 @@ const CityParams = (function () {
         $('.blocker').hide();
         $('.js-cities-params').find('.js-next').click(() => {
             params.cities = $('.city-name').toArray().map(el => $(el).text());
-            Params2.init();
+            InputForOneDimentionalFunction.init();
         });
     };
 

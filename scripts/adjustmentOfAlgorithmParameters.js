@@ -1,8 +1,8 @@
-const Params7 = (function () {
+const AdjustmentOfAlgorithmParameters = (function () {
 
     const container = $('.js-params-6');
     container.find('.js-to-begin').click(() => CityParams.reset());
-    container.find('.js-prev').click(() => Params6.init());
+    container.find('.js-prev').click(() => InputMatrixNumbersOfLights.init());
     container.find('.js-next').click(() => {
         $('.blocker').show();
         MapParams.init();

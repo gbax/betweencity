@@ -1,9 +1,9 @@
-const Params5 = (function () {
+const InputMatrixNumbersOfLights = (function () {
 
-    const container = $('.js-params-4');
+    const container = $('.js-params-5');
     container.find('.js-to-begin').click(() => CityParams.reset());
-    container.find('.js-prev').click(() => Params4.init());
-    container.find('.js-next').click(() => Params6.init());
+    container.find('.js-prev').click(() => InputMatrixQuality.init());
+    container.find('.js-next').click(() => AdjustmentOfAlgorithmParameters.init());
 
     const init = () => {
         $('.container').hide();
@@ -12,7 +12,7 @@ const Params5 = (function () {
         table.empty();
         let cities = params.cities;
         const matrix = Array.from(new Array(cities.length).keys()).map(i => Array.from(new Array(cities.length).keys()).map(y => 1));
-        params.avgRoadQuality = matrix;
+        params.avgLightCountMatrix = matrix;
         table
             .append('<div></div>')
             .append(cities.map(c => `<div>${c}</div>`).join(''));
