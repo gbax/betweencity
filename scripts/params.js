@@ -22,11 +22,11 @@ const params = {
                 xavg025: 0,
                 xmin: 0,
 
-                ymax: 0,
-                yaverage075: 0.25,
+                ymax: 1,
+                yaverage075: 0.75,
                 yaverage05: 0.5,
-                yaverage025: 0.75,
-                ymin: 1
+                yaverage025: 0.25,
+                ymin: 0
             },
             avgLightCount: {
                 xmax: 0,
@@ -35,11 +35,11 @@ const params = {
                 xavg025: 0,
                 xmin: 0,
 
-                ymax: 0,
-                yaverage075: 0.25,
+                ymax: 1,
+                yaverage075: 0.75,
                 yaverage05: 0.5,
-                yaverage025: 0.75,
-                ymin: 1
+                yaverage025: 0.25,
+                ymin: 0
             }
         },
         coefficientCriteria: {

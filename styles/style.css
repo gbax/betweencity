@@ -57,6 +57,7 @@ body {
     display: flex;
     height: 100%;
     overflow: auto;
+
 }
 
 .container.cities-params {
@@ -150,3 +151,40 @@ body {
 
     width: 70px;
 }
+
+.js-to-begin{
+    height: 50px;
+    width: 125px;
+    background-color: palegreen;
+    font-family: "Monotype Corsiva";
+    font-size: large;
+}
+.js-prev{
+    height: 50px;
+    width: 125px;
+    background-color: palegreen;
+    font-family: "Monotype Corsiva";
+    font-size: large;
+}
+.js-next{
+    height: 50px;
+    width: 125px;
+    background-color: palegreen;
+    font-family: "Monotype Corsiva";
+    font-size: large;
+}
+.js-refer{
+    height: 50px;
+    width: 125px;
+    background-color: palegreen;
+    font-family: "Monotype Corsiva";
+    font-size: large;
+}
+.js-author{
+    height: 50px;
+    width: 125px;
+    background-color: palegreen;
+    font-family: "Monotype Corsiva";
+    font-size: large;
+}
+

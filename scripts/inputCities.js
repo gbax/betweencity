@@ -20,7 +20,7 @@ const CityParams = (function () {
     const cityTemplate = (name, i) => `
         <div class="js-city-${i}">
             <span class="city-name">${name}</span>
-            <input type="button" class="city js-delete-city-${i}" value="Удалить"/>
+            <input type="button" class="city js-delete-city-${i}" value="-" style=" height: 18px"/>
             </div>`;
 
     const reset = () => {

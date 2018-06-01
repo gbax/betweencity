@@ -36,14 +36,13 @@ function PrimaryPopulation(sizePopulation, sizeReshuffle, firstCity) {
             }
         }
 
-        //population[i] = reshuffle;
+
         population.push(reshuffle);
     }
     return population;
 }
 
-//let g = PrimaryPopulation(5, 5, 0)
-//alert(g);
+
 //Кроссинговер
 function Crossing(population) {
 
@@ -196,11 +195,7 @@ function Sort(costWays, population, newPopulation) {
         newPopulation[j + 1] = population[i];
     }
     let newPopulation2 = [];
-    //копируем пути в новую матрицу с конца
-    <!-- for (let j = 0; j < costWays.length; j++) -->
-    <!-- { -->
-    <!-- newPopulation2.Add(newPopulation[costWays.length - j - 1]); -->
-    <!-- } -->
+
     for (let i = 0; i < population.length; i++) {
         newPopulation2[i] = []
         for (let j = 0; j < population[0].length; j++) {
@@ -210,14 +205,40 @@ function Sort(costWays, population, newPopulation) {
     return newPopulation2;
 }
 
-//alert(GetSet(g,0));
-//alert(CreatingANewPopulation(g, matrix,0));
-//alert(CreatingANewPopulation(PrimaryPopulation(5, 5, 0), [[1, 2, 3],[4, 5, 6],[7, 8, 9]],0));
+function Mutation(population)
+{
+    let k = 0;
+    let l = 0;
+    let tmp;
+    let flag;
 
+
+    for (let i = 0; i < population.length; i++)
+    {
+        flag = 0;
+        while (flag == 0)
+        {
+            k = Math.floor(Math.random() * ((population[0].length - 1) - 1) + 1);
+            l = Math.floor(Math.random() * ((population[0].length - 1) - 1) + 1);
+
+            if (k != l)
+            {
+                tmp = population[i][k];
+                population[i][k] = population[i][l];
+                population[i][l] = tmp;
+                flag = 1;
+            }
+
+
+        }
+
+    }
+    return population;
+}
 //Генетический алгоритм
 function GeneticAlgorithm(matrixWay, sizePopulation, firstCity) {
 
-    let numberIteration = 100000;
+    let numberIteration = params.iterationCount;
     let bestWay = [];
 
     let bestCostWay = Number.MAX_SAFE_INTEGER;
@@ -259,6 +280,12 @@ function GeneticAlgorithm(matrixWay, sizePopulation, firstCity) {
     while (numberIteration > 0) {
         newPopulation = CreatingANewPopulation(newPopulation, matrixWay, firstCity);
 
+        if(params.useMutation == true) {
+            for (let i = 0; i < sizePopulation; i++)//по наборам
+            {
+                Mutation(newPopulation);
+            }
+        }
         for (let i = 0; i < sizePopulation; i++)//по наборам
         {
             costWay = CostWayGeneticAlgorithm(matrixWay, newPopulation[i]);

@@ -55,27 +55,27 @@ function vQuality(x) {
 }
 
 //Оценка светофоров на дороге
-function vCost(x) {
+function vNumbersOfLight(x) {
 
     let k = 1, b=0, y=0;
 
     let avgLightCount = params.oneDimentionalFunctionValue.avgLightCount;
     if (x <= avgLightCount.xmax && x > avgLightCount.xavg075) {
 
-        k = (avgLightCount.yaverage075 - avgLightCount.ymax) / (avgLightCount.xavg075 - avgLightCount.xmax);
-        b = (avgLightCount.xavg075 * avgLightCount.ymax - avgLightCount.yaverage075 * avgLightCount.xmax) / (avgLightCount.xavg075 - avgLightCount.xmax);
+        k = (avgLightCount.yaverage025 - avgLightCount.ymin) / (avgLightCount.xavg075 - avgLightCount.xmax);
+        b = (avgLightCount.xavg075 * avgLightCount.ymin - avgLightCount.yaverage025 * avgLightCount.xmax) / (avgLightCount.xavg075 - avgLightCount.xmax);
     }
     else if (x <= avgLightCount.xavg075 && x > avgLightCount.xavg05) {
-        k = (avgLightCount.yaverage05 - avgLightCount.yaverage075) / (avgLightCount.xavg05 - avgLightCount.xavg075);
-        b = (avgLightCount.xavg05 * avgLightCount.yaverage075 - avgLightCount.yaverage05 * avgLightCount.xavg075) / (avgLightCount.xavg05 - avgLightCount.xavg075);
+        k = (avgLightCount.yaverage05 - avgLightCount.yaverage025) / (avgLightCount.xavg05 - avgLightCount.xavg075);
+        b = (avgLightCount.xavg05 * avgLightCount.yaverage025 - avgLightCount.yaverage05 * avgLightCount.xavg075) / (avgLightCount.xavg05 - avgLightCount.xavg075);
     }
     else if (x <= avgLightCount.xavg05 && x > avgLightCount.xavg025) {
-        k = (avgLightCount.yaverage025 - avgLightCount.yaverage05) / (avgLightCount.xavg025 - avgLightCount.xavg05);
-        b = (avgLightCount.xavg025 * avgLightCount.yaverage05 - avgLightCount.yaverage025 * avgLightCount.xavg05) / (avgLightCount.xavg025 - avgLightCount.xavg05);
+        k = (avgLightCount.yaverage075 - avgLightCount.yaverage05) / (avgLightCount.xavg025 - avgLightCount.xavg05);
+        b = (avgLightCount.xavg025 * avgLightCount.yaverage05 - avgLightCount.yaverage075 * avgLightCount.xavg05) / (avgLightCount.xavg025 - avgLightCount.xavg05);
     }
     else if (x <= avgLightCount.xavg025 && x >= avgLightCount.xmin){
-        k = (avgLightCount.ymin - avgLightCount.yaverage025) / (avgLightCount.xmin - avgLightCount.xavg025);
-        b = (avgLightCount.xmin * avgLightCount.yaverage025 - avgLightCount.ymin * avgLightCount.xavg025) / (avgLightCount.xmin - avgLightCount.xavg025);
+        k = (avgLightCount.ymax - avgLightCount.yaverage075) / (avgLightCount.xmin - avgLightCount.xavg025);
+        b = (avgLightCount.xmin * avgLightCount.yaverage075 - avgLightCount.ymax * avgLightCount.xavg025) / (avgLightCount.xmin - avgLightCount.xavg025);
     }
 
 
@@ -99,9 +99,9 @@ function lambda() {
         avgLightCount.lambda = roadQuality.lambda * vQuality(avgLightCount.avgWeightCriteria);
     }
     else if (avgLightCount.rating == 1) {
-        avgLightCount.lambda = 1 / (vCost(speedRestriction.avgWeightCriteria) + vCost(avgLightCount.avgWeightCriteria) + 1);
-        speedRestriction.lambda = avgLightCount.lambda * vCost(speedRestriction.avgWeightCriteria);
-        roadQuality.lambda = avgLightCount.lambda * vCost(roadQuality.avgWeightCriteria);
+        avgLightCount.lambda = 1 / (vNumbersOfLight(speedRestriction.avgWeightCriteria) + vNumbersOfLight(avgLightCount.avgWeightCriteria) + 1);
+        speedRestriction.lambda = avgLightCount.lambda * vNumbersOfLight(speedRestriction.avgWeightCriteria);
+        roadQuality.lambda = avgLightCount.lambda * vNumbersOfLight(roadQuality.avgWeightCriteria);
     }
 
 }
@@ -109,7 +109,7 @@ function lambda() {
 //Аддитивная оценка дороги
 function vAdditiveEstimation(xSpeed, xQuality, xCost) {
     lambda();
-    return params.coefficientCriteria.speedRestriction.lambda * vSpeed(xSpeed) + params.coefficientCriteria.roadQuality.lambda * vQuality(xQuality) + params.coefficientCriteria.avgLightCount.lambda * vCost(xCost);
+    return params.coefficientCriteria.speedRestriction.lambda * vSpeed(xSpeed) + params.coefficientCriteria.roadQuality.lambda * vQuality(xQuality) + params.coefficientCriteria.avgLightCount.lambda * vNumbersOfLight(xCost);
 }
 
 //Функция модификации матрицы стоимости

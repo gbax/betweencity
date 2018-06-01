@@ -9,7 +9,6 @@ function AssignInfinityDiagonally(matrixWay) {
             if (i == j) {
                 matrixWay[i][j] = Number.MAX_SAFE_INTEGER;
             }
-    //return matrix;
 }
 
 const getMatrixSimple = () => params.cities.map(c =>
@@ -63,35 +62,6 @@ const calcAlgorithm = () => {
         }
     }
 
-    //let MatrixValuesOfCriteria = [[110, 80, 60, 40, 20], [10, 7, 5, 3, 0], [10, 7, 5, 3, 0]];
-
-
-    //params.valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xmax = MatrixValuesOfCriteria[0][0];
-   // params.valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage075 = MatrixValuesOfCriteria[0][1];
-    //params.valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage05 = MatrixValuesOfCriteria[0][2];
-   // params.valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xaverage025 = MatrixValuesOfCriteria[0][3];
-    //params.valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xmin = MatrixValuesOfCriteria[0][4];
-
-   // params.valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xmax = MatrixValuesOfCriteria[1][0];
-   // params.valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage075 = MatrixValuesOfCriteria[1][1];
-   // params.valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage05 = MatrixValuesOfCriteria[1][2];
-   // params.valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xaverage025 = MatrixValuesOfCriteria[1][3];
-   // params.valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xmin = MatrixValuesOfCriteria[1][4];
-
-   // params.valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xmax = MatrixValuesOfCriteria[2][0];
-   // params.valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage075 = MatrixValuesOfCriteria[2][1];
-    //params.valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage05 = MatrixValuesOfCriteria[2][2];
-    //params.valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xaverage025 = MatrixValuesOfCriteria[2][3];
-   // params.valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xmin = MatrixValuesOfCriteria[2][4];
-
-
-    //let MatrixCriteriaWeight = [[2, 100], [1, 7], [3, 4]];
-   // params.valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.rank = MatrixCriteriaWeight[0][0];
-   // params.valuesForValueFunctionsAndForScalingFactors.middleEstimatesOfPermittedVelocities.xСompare = MatrixCriteriaWeight[0][1];
-   // params.valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.rank = MatrixCriteriaWeight[1][0];
-   // params.valuesForValueFunctionsAndForScalingFactors.middleQualityOfRoads.xСompare = MatrixCriteriaWeight[1][1];
-   // params.valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.rank = MatrixCriteriaWeight[2][0];
-   // params.valuesForValueFunctionsAndForScalingFactors.middleNumberOfTrafficLights.xСompare = MatrixCriteriaWeight[2][1];
     //Генетический алгоритм с модификацией
     matrixWithModification = ModificationOfMatrix(matrixWithModification, params.avgSpeedMatrix, params.avgRoadQuality, params.avgLightCountMatrix);
     let wayGeneticAlgorithmWithModification = GeneticAlgorithm(matrixWithModification, 10, 0);
@@ -116,21 +86,40 @@ const calcAlgorithm = () => {
     wayBranchAndBoundaryMethodWithModification[matrix.length] = first;
     console.log(wayBranchAndBoundaryMethodWithModification);
     console.log(costWayBranchAndBoundaryMethodWithModification);
+
+    //const getWayCities = (way) =>{
+        //return way.map(i => params.cities.find(с => c.number === (i+1)).city).join('<br/>')
+   // }
+    function getWayCities(way) {
+        let wayCitiesName = "";
+        for (let i=0;i<way.length-1;i++)
+        {
+           wayCitiesName +=  (params.cities.find(c => c.number === (way[i]+1))).city;
+            wayCitiesName+="-";
+        }
+        wayCitiesName +=  (params.cities.find(c => c.number === (way[way.length-1]+1))).city;
+        return wayCitiesName;
+    }
+
     return {
         firstAlgorithmResult: {
-            wayBranchAndBoundaryMethod: wayBranchAndBoundaryMethod,
+            wayBranchAndBoundaryMethod: getWayCities(wayBranchAndBoundaryMethod),
+            //wayBranchAndBoundaryMethod:wayBranchAndBoundaryMethod,
             costWayBranchAndBoundaryMethod: costWayBranchAndBoundaryMethod
         },
         secondAlgorithmResult: {
-            wayGeneticAlgorithm: wayGeneticAlgorithm,
+            wayGeneticAlgorithm: getWayCities(wayGeneticAlgorithm),
+            //wayGeneticAlgorithm: wayGeneticAlgorithm,
             costWayGeneticAlgorithm: costWayGeneticAlgorithm
         },
         thirdAlgorithmResult: {
-            wayBranchAndBoundaryMethodWithModification: wayBranchAndBoundaryMethodWithModification,
+            wayBranchAndBoundaryMethodWithModification: getWayCities(wayBranchAndBoundaryMethodWithModification),
+            //wayBranchAndBoundaryMethodWithModification: wayBranchAndBoundaryMethodWithModification,
             costWayBranchAndBoundaryMethodWithModification: costWayBranchAndBoundaryMethodWithModification
         },
         forthAlgorithmResult: {
-            wayGeneticAlgorithmWithModification: wayGeneticAlgorithmWithModification,
+            wayGeneticAlgorithmWithModification: getWayCities(wayGeneticAlgorithmWithModification),
+            //wayGeneticAlgorithmWithModification: wayGeneticAlgorithmWithModification,
             costWayGeneticAlgorithmWithModification: costWayGeneticAlgorithmWithModification
         }
     };
