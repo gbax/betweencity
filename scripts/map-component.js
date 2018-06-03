@@ -3,6 +3,18 @@ const MapParams = (function () {
     const container = $('.js-params-map');
     container.find('.js-to-begin').click(() => CityParams.reset());
     container.find('.js-prev').click(() => AdjustmentOfAlgorithmParameters.init());
+    container.find('.js-save').click(() => fileSaver(JSON.stringify(params)));
+
+    const fileSaver = text => {
+        var blob = new Blob([text], { type: 'text/plain' }),
+            anchor = document.createElement('a');
+
+        anchor.download = "cities.txt";
+        anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+        anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
+        anchor.click();
+    };
+
 
     const mapLeft = {_map: null};
     const mapRight = {_map: null};

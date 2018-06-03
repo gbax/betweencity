@@ -2,6 +2,24 @@ const CityParams = (function () {
 
     let counter = 0;
 
+    const fileChooseCallback = (evt) => {
+        const _this = this;
+        let files = evt.target.files;
+        for (let i = 0, f; f = files[i]; i++) {
+            let reader = new FileReader();
+            reader.onload = (reader => {
+                return () => {
+                    let contents = reader.result;
+                    params = JSON.parse(contents);
+                    cities = params.cities.map(c => c.city);
+                    initApp();
+                }
+            })(reader);
+            reader.readAsText(f);
+        }
+    };
+    $('#files').change(fileChooseCallback);
+
     const initCities = [
         'Уфа',
         'Стерлитамак',
@@ -27,11 +45,11 @@ const CityParams = (function () {
         $('.container').hide();
         $('.container.cities-params').show();
         cities = initCities;
-
-
-
         params = jQuery.extend(true, {}, defaultParams);
+        initApp();
+    };
 
+    const initApp = () => {
         $('.js-cities').empty();
         let addCityCallback = city => {
             const i = counter++;
@@ -39,7 +57,7 @@ const CityParams = (function () {
             let deleteButton = $('.js-delete-city-' + i);
             deleteButton.click(() => deleteButton.parent().remove());
         };
-        initCities.forEach(addCityCallback);
+        cities.forEach(addCityCallback);
         $('.js-add').click(async () => {
             const city = $('.js-city').val().trim();
             if (city && !cities.map(c => c.toUpperCase()).includes(city.toUpperCase())) {
@@ -51,6 +69,7 @@ const CityParams = (function () {
                             resolve(data.response.GeoObjectCollection.featureMember.length !== 0);
                         }));
                 if (isExsist) {
+                    cities.push(city);
                     addCityCallback(city);
                     $('.js-city').val('');
                 } else {
@@ -76,6 +95,7 @@ const CityParams = (function () {
         $('.container').hide();
         $('.container.cities-params').show();
     };
+
 
     return {
         reset: reset,

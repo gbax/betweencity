@@ -27,6 +27,10 @@
             Список городов:
         </div>
         <div class="field js-cities"></div>
+        <div class="field">
+            <input type="button" id="loadFileXml" value="Загрузить данные городов" onclick="document.getElementById('files').click();" />
+            <input type="file" style="display:none;" id="files" name="files"/>
+        </div>
     </div>
         <div class="container js-params-1" style="flex-direction: column; display: none;">
             <div class="field button-set" style="height: 20px">
@@ -157,6 +161,9 @@
                 <input type="button" class="js-author" value="Об авторе"/>
             </div>
             <h2 class="field">Результаты</h2>
+            <div class="field">
+                <input type="button" class="js-save" value="Сохранить данные для рассчета"/>
+            </div>
             <div class="results">
                 <div class="first-calc">
                     <h2 class="field">Метод ветвей и границ</h2>

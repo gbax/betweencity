@@ -27,8 +27,12 @@ const InputMatrixSpeed = (function () {
         let table = container.find('.params-dynamic-table');
         table.empty();
         let cities = params.cities;
-        const matrix = Array.from(new Array(cities.length).keys()).map(i => Array.from(new Array(cities.length).keys()).map(y => 1));
-        params.avgSpeedMatrix = matrix;
+        if (!params.avgSpeedMatrix && params.avgSpeedMatrix.length !== cities.length && params.avgSpeedMatrix[0].length !== cities.length) {
+            matrix = Array.from(new Array(cities.length).keys()).map(i => Array.from(new Array(cities.length).keys()).map(y => 1));
+            params.avgSpeedMatrix = matrix;
+        } else {
+            matrix = params.avgSpeedMatrix;
+        }
         table
             .append('<div></div>')
             .append(cities.map(c => `<div>${c.city ? c.city : c}</div>`).join(''));
