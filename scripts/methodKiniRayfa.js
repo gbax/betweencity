@@ -107,18 +107,18 @@ function lambda() {
 }
 
 //Аддитивная оценка дороги
-function vAdditiveEstimation(xSpeed, xQuality, xCost) {
+function vAdditiveEstimation(xSpeed, xQuality, xNumbersOfLights) {
     lambda();
-    return params.coefficientCriteria.speedRestriction.lambda * vSpeed(xSpeed) + params.coefficientCriteria.roadQuality.lambda * vQuality(xQuality) + params.coefficientCriteria.avgLightCount.lambda * vNumbersOfLight(xCost);
+    return params.coefficientCriteria.speedRestriction.lambda * vSpeed(xSpeed) + params.coefficientCriteria.roadQuality.lambda * vQuality(xQuality) + params.coefficientCriteria.avgLightCount.lambda * vNumbersOfLight(xNumbersOfLights);
 }
 
 //Функция модификации матрицы стоимости
-function ModificationOfMatrix(Matrix, MatrixOfEstimatesOfPermittedVelocities, MatrixOfQualityOfRoads, MatrixOfFare) {
+function ModificationOfMatrix(Matrix, MatrixOfEstimatesOfPermittedVelocities, MatrixOfQualityOfRoads, MatrixOfNumbersOfLights) {
 
     for (let i = 0; i < Matrix.length; i++)
         for (let j = 0; j < Matrix[0].length; j++) {
             if (i != j)
-                Matrix[i][j] *= (1 - vAdditiveEstimation(MatrixOfEstimatesOfPermittedVelocities[i][j], MatrixOfQualityOfRoads[i][j], MatrixOfFare[i][j]));
+                Matrix[i][j] *= (1 - vAdditiveEstimation(MatrixOfEstimatesOfPermittedVelocities[i][j], MatrixOfQualityOfRoads[i][j], MatrixOfNumbersOfLights[i][j]));
         }
     return Matrix;
 }
