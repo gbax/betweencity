@@ -28,7 +28,7 @@ const InputMatrixQuality = (function () {
         table.empty();
         let cities = params.cities;
         let matrix = null;
-        if (!params.avgRoadQuality && params.avgRoadQuality.length !== cities.length && params.avgRoadQuality[0].length !== cities.length) {
+        if (!params.avgRoadQuality.length || params.avgRoadQuality.length !== cities.length && params.avgRoadQuality[0].length !== cities.length) {
             matrix = Array.from(new Array(cities.length).keys()).map(i => Array.from(new Array(cities.length).keys()).map(y => 1));
             params.avgRoadQuality = matrix;
         } else {

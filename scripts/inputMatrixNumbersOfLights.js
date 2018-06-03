@@ -27,7 +27,7 @@ const InputMatrixNumbersOfLights = (function () {
         let table = container.find('.params-dynamic-table');
         table.empty();
         let cities = params.cities;
-        if (!params.avgLightCountMatrix && params.avgLightCountMatrix.length !== cities.length && params.avgLightCountMatrix[0].length !== cities.length) {
+        if (!params.avgLightCountMatrix.length || params.avgLightCountMatrix.length !== cities.length && params.avgLightCountMatrix[0].length !== cities.length) {
             matrix = Array.from(new Array(cities.length).keys()).map(i => Array.from(new Array(cities.length).keys()).map(y => 1));
             params.avgLightCountMatrix = matrix;
         } else {
