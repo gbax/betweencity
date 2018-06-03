@@ -7,184 +7,215 @@
 </head>
 <body>
 <div class="blocker"></div>
-<div class="container cities-params js-cities-params">
-    <div class="field">
-        <input type="button" class="js-to-begin" value="Начать сначала"/>
-        <input type="button" class="js-prev" value="Назад"/>
-        <input type="button" class="js-next" value="Далее"/>
-        <input type="button" class="js-refer" value="Справка"/>
-        <input type="button" class="js-author" value="Об авторе"/>
+<div class="grid-system">
+    <div></div>
+    <div><div class="container cities-params js-cities-params">
+        <div class="field button-set">
+            <input type="button" class="js-to-begin" value="Начать сначала"/>
+            <input type="button" class="js-prev" value="Назад"/>
+            <input type="button" class="js-next" value="Далее"/>
+            <input type="button" class="js-refer" value="Справка"/>
+            <input type="button" class="js-author" value="Об авторе"/>
+        </div>
+        <h2 class="field">Введите названия городов</h2>
+        <div class="field">
+            Город:
+            <input type="text" class="city js-city"/>
+            <input type="button" class="js-add" value="Добавить"/>
+        </div>
+        <div class="field">
+            Список городов:
+        </div>
+        <div class="field js-cities"></div>
     </div>
-    <h2 class="field">Введите названия городов</h2>
-    <div class="field">
-        Город:
-        <input type="text" class="city js-city"/>
-        <input type="button" class="js-add" value="Добавить"/>
-    </div>
-    <div class="field">
-        Список городов:
-    </div>
-    <div class="field js-cities"></div>
+        <div class="container js-params-1" style="flex-direction: column; display: none;">
+            <div class="field button-set" style="height: 20px">
+                <input type="button" class="js-to-begin" value="Начать сначала"/>
+                <input type="button" class="js-prev" value="Назад"/>
+                <input type="button" class="js-next" value="Далее"/>
+                <input type="button" class="js-refer" value="Справка"/>
+                <input type="button" class="js-author" value="Об авторе"/>
+            </div>
+            <h2 class="field">Введите значения для построения одномерных функций ценности</h2>
+            <div class="params-1-table">
+                <div></div>
+                <div>Среднее ограничение скорости</div>
+                <div>Среднее качество дорог</div>
+                <div>Среднее количество светофоров на 1 км</div>
+                <div>Наибольшее значение</div>
+                <div><input type="text" class="text-value js-speedRestriction-xmax"/></div>
+                <div><input type="text" class="text-value js-roadQuality-xmax"/></div>
+                <div><input type="text" class="text-value js-avgLightCount-xmax"/></div>
+                <div>Среднее значение по ценности 0,75</div>
+                <div><input type="text" class="text-value js-speedRestriction-xavg075"/></div>
+                <div><input type="text" class="text-value js-roadQuality-xavg075"/></div>
+                <div><input type="text" class="text-value js-avgLightCount-xavg075"/></div>
+                <div>Среднее значение по ценности 0,5</div>
+                <div><input type="text" class="text-value js-speedRestriction-xavg05"/></div>
+                <div><input type="text" class="text-value js-roadQuality-xavg05"/></div>
+                <div><input type="text" class="text-value js-avgLightCount-xavg05"/></div>
+                <div>Среднее значение по ценности 0,25</div>
+                <div><input type="text" class="text-value js-speedRestriction-xavg025"/></div>
+                <div><input type="text" class="text-value js-roadQuality-xavg025"/></div>
+                <div><input type="text" class="text-value js-avgLightCount-xavg025"/></div>
+                <div>Наименьшее значение</div>
+                <div><input type="text" class="text-value js-speedRestriction-xmin"/></div>
+                <div><input type="text" class="text-value js-roadQuality-xmin"/></div>
+                <div><input type="text" class="text-value js-avgLightCount-xmin"/></div>
+            </div>
+        </div>
+        <div class="container js-params-2" style="flex-direction: column;display: none;">
+            <div class="field button-set" style="height: 20px">
+                <input type="button" class="js-to-begin" value="Начать сначала"/>
+                <input type="button" class="js-prev" value="Назад"/>
+                <input type="button" class="js-next" value="Далее"/>
+                <input type="button" class="js-refer" value="Справка"/>
+                <input type="button" class="js-author" value="Об авторе"/>
+            </div>
+            <h2 class="field">Введите значения для определения шкалирующий коэффициентов</h2>
+            <div class="params-2-table">
+                <div></div>
+                <div>Среднее ограничение скорости</div>
+                <div>Среднее качество дорог</div>
+                <div>Среднее количество светофоров на 1 км</div>
+                <div>Рейтинг критерия</div>
+                <div><input type="text" class="text-value js-speedRestriction-rating"/></div>
+                <div><input type="text" class="text-value js-roadQuality-rating"/></div>
+                <div><input type="text" class="text-value js-avgLightCount-rating"/></div>
+                <div>Значения для сравнения весов критериев</div>
+                <div><input type="text" class="text-value js-speedRestriction-avgWeightCriteria"/></div>
+                <div><input type="text" class="text-value js-roadQuality-avgWeightCriteria"/></div>
+                <div><input type="text" class="text-value js-avgLightCount-avgWeightCriteria"/></div>
+            </div>
+        </div>
+
+
+        <div class="container js-params-3" style="flex-direction: column;display: none;">
+            <div class="field button-set" style="height: 20px">
+                <input type="button" class="js-to-begin" value="Начать сначала"/>
+                <input type="button" class="js-prev" value="Назад"/>
+                <input type="button" class="js-next" value="Далее"/>
+                <input type="button" class="js-refer" value="Справка"/>
+                <input type="button" class="js-author" value="Об авторе"/>
+            </div>
+            <h2 class="field">Матрица оценок средних разрешенных скоростей</h2>
+            <div class="params-dynamic-table">
+
+            </div>
+        </div>
+        <div class="container js-params-4" style="flex-direction: column;display: none;">
+            <div class="field button-set" style="height: 20px">
+                <input type="button" class="js-to-begin" value="Начать сначала"/>
+                <input type="button" class="js-prev" value="Назад"/>
+                <input type="button" class="js-next" value="Далее"/>
+                <input type="button" class="js-refer" value="Справка"/>
+                <input type="button" class="js-author" value="Об авторе"/>
+            </div>
+            <h2 class="field">Матрица оценок среднего качества дорог</h2>
+            <div class="params-dynamic-table">
+
+            </div>
+        </div>
+
+        <div class="container js-params-5" style="flex-direction: column;display: none;">
+            <div class="field button-set" style="height: 20px">
+                <input type="button" class="js-to-begin" value="Начать сначала"/>
+                <input type="button" class="js-prev" value="Назад"/>
+                <input type="button" class="js-next" value="Далее"/>
+                <input type="button" class="js-refer" value="Справка"/>
+                <input type="button" class="js-author" value="Об авторе"/>
+            </div>
+            <h2 class="field">Матрица оценок среднего количества светофоров</h2>
+            <div class="params-dynamic-table">
+
+            </div>
+        </div>
+
+        <div class="container js-params-6" style="flex-direction: column;display: none;">
+            <div class="field button-set" style="height: 20px">
+                <input type="button" class="js-to-begin" value="Начать сначала"/>
+                <input type="button" class="js-prev" value="Назад"/>
+                <input type="button" class="js-next" value="Далее"/>
+                <input type="button" class="js-refer" value="Справка"/>
+                <input type="button" class="js-author" value="Об авторе"/>
+            </div>
+            <h2 class="field">Выберите настройки для генетического алгоритма</h2>
+            <div class="field">
+                Использовать мутацию:<input type="checkbox" class="checkbox js-use-mutation"/>
+            </div>
+            <div class="field">
+                Количество итераций: <input type="text" class="text-value js-iteration-count"/>
+            </div>
+        </div>
+
+        <div class="container maps js-params-map" style="display: none">
+            <div class="field button-set" style="height: 20px">
+                <input type="button" class="js-to-begin" value="Начать сначала"/>
+                <input type="button" class="js-prev" value="Назад"/>
+                <input type="button" class="js-next" value="Далее"/>
+                <input type="button" class="js-refer" value="Справка"/>
+                <input type="button" class="js-author" value="Об авторе"/>
+            </div>
+            <h2 class="field">Результаты</h2>
+            <div class="results">
+                <div class="first-calc">
+                    <h2 class="field">Метод ветвей и границ</h2>
+                    <div class="field" id="map" style="width: 600px; height: 400px"></div>
+                    <div class="map-result map1">
+
+                    </div>
+                </div>
+                <div class="second-calc">
+                    <h2 class="field">Генетический алгоритм</h2>
+                    <div class="field" id="map2" style="width: 600px; height: 400px"></div>
+                    <div class="map-result map2">
+
+                    </div>
+                </div>
+                <div class="third-calc">
+                    <h2 class="field">Метод ветвей и границ с учетом предпочтений условий</h2>
+                    <div class="field" id="map3" style="width: 600px; height: 400px"></div>
+                    <div class="map-result map3">
+
+                    </div>
+                </div>
+                <div class="forth-calc">
+                    <h2 class="field">Генетический алгоритм с учетом предпочтений условий</h2>
+                    <div class="field" id="map4" style="width: 600px; height: 400px"></div>
+                    <div class="map-result map4">
+
+                    </div>
+                </div>
+            </div>
+        </div></div>
+    <div></div>
 </div>
-<div class="container js-params-1" style="flex-direction: column; display: none;">
-    <div class="field" style="height: 20px">
-        <input type="button" class="js-to-begin" value="Начать сначала"/>
-        <input type="button" class="js-prev" value="Назад"/>
-        <input type="button" class="js-next" value="Далее"/>
-        <input type="button" class="js-refer" value="Справка"/>
-        <input type="button" class="js-author" value="Об авторе"/>
-    </div>
-    <h2 class="field">Введите значения для построения одномерных функций ценности</h2>
-    <div class="params-1-table">
-        <div></div>
-        <div>Среднее ограничение скорости</div>
-        <div>Среднее качество дорог</div>
-        <div>Среднее количество светофоров на 1 км</div>
-        <div>Наибольшее значение</div>
-        <div><input type="text" class="text-value js-speedRestriction-xmax"/></div>
-        <div><input type="text" class="text-value js-roadQuality-xmax"/></div>
-        <div><input type="text" class="text-value js-avgLightCount-xmax"/></div>
-        <div>Среднее значение по ценности 0,75</div>
-        <div><input type="text" class="text-value js-speedRestriction-xavg075"/></div>
-        <div><input type="text" class="text-value js-roadQuality-xavg075"/></div>
-        <div><input type="text" class="text-value js-avgLightCount-xavg075"/></div>
-        <div>Среднее значение по ценности 0,5</div>
-        <div><input type="text" class="text-value js-speedRestriction-xavg05"/></div>
-        <div><input type="text" class="text-value js-roadQuality-xavg05"/></div>
-        <div><input type="text" class="text-value js-avgLightCount-xavg05"/></div>
-        <div>Среднее значение по ценности 0,25</div>
-        <div><input type="text" class="text-value js-speedRestriction-xavg025"/></div>
-        <div><input type="text" class="text-value js-roadQuality-xavg025"/></div>
-        <div><input type="text" class="text-value js-avgLightCount-xavg025"/></div>
-        <div>Наименьшее значение</div>
-        <div><input type="text" class="text-value js-speedRestriction-xmin"/></div>
-        <div><input type="text" class="text-value js-roadQuality-xmin"/></div>
-        <div><input type="text" class="text-value js-avgLightCount-xmin"/></div>
-    </div>
-</div>
-<div class="container js-params-2" style="flex-direction: column;display: none;">
-    <div class="field" style="height: 20px">
-        <input type="button" class="js-to-begin" value="Начать сначала"/>
-        <input type="button" class="js-prev" value="Назад"/>
-        <input type="button" class="js-next" value="Далее"/>
-        <input type="button" class="js-refer" value="Справка"/>
-        <input type="button" class="js-author" value="Об авторе"/>
-    </div>
-    <h2 class="field">Введите значения для определения шкалирующий коэффициентов</h2>
-    <div class="params-2-table">
-        <div></div>
-        <div>Среднее ограничение скорости</div>
-        <div>Среднее качество дорог</div>
-        <div>Среднее количество светофоров на 1 км</div>
-        <div>Рейтинг критерия</div>
-        <div><input type="text" class="text-value js-speedRestriction-rating"/></div>
-        <div><input type="text" class="text-value js-roadQuality-rating"/></div>
-        <div><input type="text" class="text-value js-avgLightCount-rating"/></div>
-        <div>Значения для сравнения весов критериев</div>
-        <div><input type="text" class="text-value js-speedRestriction-avgWeightCriteria"/></div>
-        <div><input type="text" class="text-value js-roadQuality-avgWeightCriteria"/></div>
-        <div><input type="text" class="text-value js-avgLightCount-avgWeightCriteria"/></div>
-    </div>
-</div>
+<div id="myModal" class="modal">
 
-
-<div class="container js-params-3" style="flex-direction: column;display: none;">
-    <div class="field" style="height: 20px">
-        <input type="button" class="js-to-begin" value="Начать сначала"/>
-        <input type="button" class="js-prev" value="Назад"/>
-        <input type="button" class="js-next" value="Далее"/>
-        <input type="button" class="js-refer" value="Справка"/>
-        <input type="button" class="js-author" value="Об авторе"/>
-    </div>
-    <h2 class="field">Матрица оценок средних разрешенных скоростей</h2>
-    <div class="params-dynamic-table">
-
-    </div>
-</div>
-<div class="container js-params-4" style="flex-direction: column;display: none;">
-    <div class="field" style="height: 20px">
-        <input type="button" class="js-to-begin" value="Начать сначала"/>
-        <input type="button" class="js-prev" value="Назад"/>
-        <input type="button" class="js-next" value="Далее"/>
-        <input type="button" class="js-refer" value="Справка"/>
-        <input type="button" class="js-author" value="Об авторе"/>
-    </div>
-    <h2 class="field">Матрица оценок среднего качества дорог</h2>
-    <div class="params-dynamic-table">
-
-    </div>
-</div>
-
-<div class="container js-params-5" style="flex-direction: column;display: none;">
-    <div class="field" style="height: 20px">
-        <input type="button" class="js-to-begin" value="Начать сначала"/>
-        <input type="button" class="js-prev" value="Назад"/>
-        <input type="button" class="js-next" value="Далее"/>
-        <input type="button" class="js-refer" value="Справка"/>
-        <input type="button" class="js-author" value="Об авторе"/>
-    </div>
-    <h2 class="field">Матрица оценок среднего количества светофоров</h2>
-    <div class="params-dynamic-table">
-
-    </div>
-</div>
-
-<div class="container js-params-6" style="flex-direction: column;display: none;">
-    <div class="field" style="height: 20px">
-        <input type="button" class="js-to-begin" value="Начать сначала"/>
-        <input type="button" class="js-prev" value="Назад"/>
-        <input type="button" class="js-next" value="Далее"/>
-        <input type="button" class="js-refer" value="Справка"/>
-        <input type="button" class="js-author" value="Об авторе"/>
-    </div>
-    <h2 class="field">Выберите настройки для генетического алгоритма</h2>
-    <div class="field">
-        Использовать мутацию:<input type="checkbox" class="checkbox js-use-mutation"/>
-    </div>
-    <div class="field">
-        Количество итераций: <input type="text" class="text-value js-iteration-count"/>
-    </div>
-</div>
-
-<div class="container maps js-params-map" style="display: none">
-    <div class="field" style="height: 20px">
-        <input type="button" class="js-to-begin" value="Начать сначала"/>
-        <input type="button" class="js-prev" value="Назад"/>
-        <input type="button" class="js-next" value="Далее"/>
-        <input type="button" class="js-refer" value="Справка"/>
-        <input type="button" class="js-author" value="Об авторе"/>
-    </div>
-    <h2 class="field">Результаты</h2>
-    <div class="results">
-    <div class="first-calc">
-        <h2 class="field">Метод ветвей и границ</h2>
-        <div class="field" id="map" style="width: 600px; height: 400px"></div>
-        <div class="map-result map1">
-
+    <div class="modal-content">
+        <div style="display: flex">
+            <div style="width: 100px;">Справка</div>
+            <span class="close js-close-help">&times;</span>
+        </div>
+        <div style="margin-top: 20px;">
+            Текст справки
         </div>
     </div>
-    <div class="second-calc">
-        <h2 class="field">Генетический алгоритм</h2>
-        <div class="field" id="map2" style="width: 600px; height: 400px"></div>
-        <div class="map-result map2">
 
+</div>
+
+<div id="myModal-about-author" class="modal">
+
+    <div class="modal-content">
+        <div style="display: flex">
+            <div style="width: 100px;">Об авторе</div>
+            <span class="close js-close-author">&times;</span>
+        </div>
+        <div style="margin-top: 20px;">
+            Текст справки
         </div>
     </div>
-    <div class="third-calc">
-        <h2 class="field">Метод ветвей и границ с учетом предпочтений условий</h2>
-        <div class="field" id="map3" style="width: 600px; height: 400px"></div>
-        <div class="map-result map3">
 
-        </div>
-    </div>
-    <div class="forth-calc">
-        <h2 class="field">Генетический алгоритм с учетом предпочтений условий</h2>
-        <div class="field" id="map4" style="width: 600px; height: 400px"></div>
-        <div class="map-result map4">
-
-        </div>
-    </div>
-    </div>
 </div>
 
 
@@ -204,6 +235,7 @@
 <script src="scripts/geneticAlgorithm.js"></script>
 <script src="scripts/branchAndBoundaryMethod.js"></script>
 <script src="scripts/methodKiniRayfa.js"></script>
+<script src="scripts/modals.js"></script>
 
 
 </body>
