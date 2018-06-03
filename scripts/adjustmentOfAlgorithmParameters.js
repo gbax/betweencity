@@ -4,6 +4,10 @@ const AdjustmentOfAlgorithmParameters = (function () {
     container.find('.js-to-begin').click(() => CityParams.reset());
     container.find('.js-prev').click(() => InputMatrixNumbersOfLights.init());
     container.find('.js-next').click(() => {
+        if (params.iterationCount === '' || params.iterationCount === undefined || params.iterationCount === null) {
+            alert('Введено пустое значение');
+            return
+        }
         $('.blocker').show();
         MapParams.init();
     });
@@ -18,7 +22,7 @@ const AdjustmentOfAlgorithmParameters = (function () {
         });
         const field = $('.js-iteration-count');
         field.val(params.iterationCount);
-        field.focusout(() => {
+        field.off('focusout').focusout(() => {
             params.iterationCount = +field.val();
         });
     };

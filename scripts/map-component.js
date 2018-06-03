@@ -58,7 +58,7 @@ const MapParams = (function () {
     const initMap = (parent, id, deffered) => {
         ymaps.ready(() => {
             parent._map = new ymaps.Map(id, {
-                center: [55.965231, 54.782331],
+                center: [54.734773, 55.957829],
                 zoom: 7,
                 controls: []
             });
@@ -93,39 +93,48 @@ const MapParams = (function () {
 
         let results = calcAlgorithm();
 
-        drawCitiesPoints(mapLeft);
+        drawCitiesPoints(mapLeft, results.firstAlgorithmResult.points);
         drawRoutes(mapLeft);
-        drawCitiesPoints(mapRight);
+        drawCitiesPoints(mapRight, results.secondAlgorithmResult.points);
         drawRoutes(mapRight);
-        drawCitiesPoints(mapThird);
+        drawCitiesPoints(mapThird, results.thirdAlgorithmResult.points);
         drawRoutes(mapThird);
-        drawCitiesPoints(mapForth);
+        drawCitiesPoints(mapForth, results.forthAlgorithmResult.points);
         drawRoutes(mapForth);
 
-        $('.map-result.map1')
+        $('.map-result.map1').empty()
             .append(results.firstAlgorithmResult.costWayBranchAndBoundaryMethod)
             .append('<br/>')
             .append(results.firstAlgorithmResult.wayBranchAndBoundaryMethod);
 
-        $('.map-result.map2')
-            .append(results.secondAlgorithmResult.costWayGeneticAlgorithm )
+        $('.map-result.map2').empty()
+            .append(results.secondAlgorithmResult.costWayGeneticAlgorithm)
             .append('<br/>')
-            .append(results.secondAlgorithmResult.wayGeneticAlgorithm );
+            .append(results.secondAlgorithmResult.wayGeneticAlgorithm);
 
-        $('.map-result.map3')
-            .append(results.thirdAlgorithmResult.costWayBranchAndBoundaryMethodWithModification )
+        $('.map-result.map3').empty()
+            .append(results.thirdAlgorithmResult.costWayBranchAndBoundaryMethodWithModification)
             .append('<br/>')
-            .append(results.thirdAlgorithmResult.wayBranchAndBoundaryMethodWithModification );
+            .append(results.thirdAlgorithmResult.wayBranchAndBoundaryMethodWithModification);
 
-        $('.map-result.map4')
-            .append(results.forthAlgorithmResult.costWayGeneticAlgorithmWithModification )
+        $('.map-result.map4').empty()
+            .append(results.forthAlgorithmResult.costWayGeneticAlgorithmWithModification)
             .append('<br/>')
-            .append(results.forthAlgorithmResult.wayGeneticAlgorithmWithModification );
+            .append(results.forthAlgorithmResult.wayGeneticAlgorithmWithModification);
 
         $('.blocker').hide();
     };
 
-    const drawCitiesPoints = (map) => {
+    const drawCitiesPoints = (map, points) => {
+        const getPoint = num => {
+            let res = null;
+            points.forEach((el, i) => {
+                if (el === num - 1 && res === null) {
+                    res = i;
+                }
+            });
+            return res+1;
+        };
         params.cities.map(c =>
             new ymaps.GeoObject({
                 // Описание геометрии.
@@ -136,7 +145,7 @@ const MapParams = (function () {
                 // Свойства.
                 properties: {
                     // Контент метки.
-                    iconContent: c.number,
+                    iconContent: getPoint(c.number),
                     data: c
                 }
             }, {

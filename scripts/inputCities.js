@@ -27,6 +27,11 @@ const CityParams = (function () {
         $('.container').hide();
         $('.container.cities-params').show();
         cities = initCities;
+
+
+
+        params = jQuery.extend(true, {}, defaultParams);
+
         $('.js-cities').empty();
         let addCityCallback = city => {
             const i = counter++;
@@ -35,11 +40,23 @@ const CityParams = (function () {
             deleteButton.click(() => deleteButton.parent().remove());
         };
         initCities.forEach(addCityCallback);
-        $('.js-add').click(() => {
+        $('.js-add').click(async () => {
             const city = $('.js-city').val().trim();
             if (city && !cities.map(c => c.toUpperCase()).includes(city.toUpperCase())) {
-                addCityCallback(city);
-                $('.js-city').val('');
+                $('.blocker').show();
+                let isExsist = await new Promise(resolve =>
+                    $.get(`https://geocode-maps.yandex.ru/1.x/?format=json&geocode=${city}&results=1`, (data) => {
+                    })
+                        .done(data => {
+                            resolve(data.response.GeoObjectCollection.featureMember.length !== 0);
+                        }));
+                if (isExsist) {
+                    addCityCallback(city);
+                    $('.js-city').val('');
+                } else {
+                    alert('Введен несуществующий город');
+                }
+                $('.blocker').hide();
             } else {
                 alert('Пустое значение или город уже присутствует в списке')
             }
@@ -47,12 +64,22 @@ const CityParams = (function () {
         $('.blocker').hide();
         $('.js-cities-params').find('.js-next').click(() => {
             params.cities = $('.city-name').toArray().map(el => $(el).text());
+            if (!params.cities.length) {
+                alert('Не введено ни одного города!');
+                return;
+            }
             InputForOneDimentionalFunction.init();
         });
     };
 
+    const show = () => {
+        $('.container').hide();
+        $('.container.cities-params').show();
+    };
+
     return {
-        reset: reset
+        reset: reset,
+        show: show
     }
 
 })();

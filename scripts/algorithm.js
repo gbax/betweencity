@@ -1,4 +1,3 @@
-
 //Присвоенние бесконечности в матрице по диагонали
 function AssignInfinityDiagonally(matrixWay) {
 
@@ -44,6 +43,7 @@ const calcAlgorithm = () => {
 
     let first = 0;
     I[0] = 0;
+    bestCostWayBranchAndBoundaryMethod = Number.MAX_SAFE_INTEGER;
     let wayBranchAndBoundaryMethod = Branch_And_Boundary_Method(matrix, I, J, X0);
     let costWayBranchAndBoundaryMethod = CostWayBranchAndBoundaryMethod(matrix, wayBranchAndBoundaryMethod);
 
@@ -88,38 +88,37 @@ const calcAlgorithm = () => {
     console.log(costWayBranchAndBoundaryMethodWithModification);
 
     //const getWayCities = (way) =>{
-        //return way.map(i => params.cities.find(с => c.number === (i+1)).city).join('<br/>')
-   // }
+    //return way.map(i => params.cities.find(с => c.number === (i+1)).city).join('<br/>')
+    // }
     function getWayCities(way) {
         let wayCitiesName = "";
-        for (let i=0;i<way.length-1;i++)
-        {
-           wayCitiesName +=  (params.cities.find(c => c.number === (way[i]+1))).city;
-            wayCitiesName+="-";
+        for (let i = 0; i < way.length - 1; i++) {
+            wayCitiesName += (params.cities.find(c => c.number === (way[i] + 1))).city;
+            wayCitiesName += " - ";
         }
-        wayCitiesName +=  (params.cities.find(c => c.number === (way[way.length-1]+1))).city;
+        wayCitiesName += (params.cities.find(c => c.number === (way[way.length - 1] + 1))).city;
         return wayCitiesName;
     }
 
     return {
         firstAlgorithmResult: {
             wayBranchAndBoundaryMethod: getWayCities(wayBranchAndBoundaryMethod),
-            //wayBranchAndBoundaryMethod:wayBranchAndBoundaryMethod,
+            points: wayBranchAndBoundaryMethod,
             costWayBranchAndBoundaryMethod: costWayBranchAndBoundaryMethod
         },
         secondAlgorithmResult: {
             wayGeneticAlgorithm: getWayCities(wayGeneticAlgorithm),
-            //wayGeneticAlgorithm: wayGeneticAlgorithm,
+            points: wayGeneticAlgorithm,
             costWayGeneticAlgorithm: costWayGeneticAlgorithm
         },
         thirdAlgorithmResult: {
             wayBranchAndBoundaryMethodWithModification: getWayCities(wayBranchAndBoundaryMethodWithModification),
-            //wayBranchAndBoundaryMethodWithModification: wayBranchAndBoundaryMethodWithModification,
+            points: wayBranchAndBoundaryMethodWithModification,
             costWayBranchAndBoundaryMethodWithModification: costWayBranchAndBoundaryMethodWithModification
         },
         forthAlgorithmResult: {
             wayGeneticAlgorithmWithModification: getWayCities(wayGeneticAlgorithmWithModification),
-            //wayGeneticAlgorithmWithModification: wayGeneticAlgorithmWithModification,
+            points: wayGeneticAlgorithmWithModification,
             costWayGeneticAlgorithmWithModification: costWayGeneticAlgorithmWithModification
         }
     };

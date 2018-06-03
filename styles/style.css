@@ -57,7 +57,7 @@ body {
     display: flex;
     height: 100%;
     overflow: auto;
-
+    align-items: center;
 }
 
 .container.cities-params {
@@ -143,8 +143,8 @@ body {
 }
 
 .map-result {
-    height: 200px;
-    width: 100%;
+    padding: 15px;
+    height: 100px;
 }
 .text-value
 {
